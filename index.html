@@ -28,9 +28,11 @@ html,body{background:#0D0A08;color:rgba(248,240,232,0.92);min-height:100%}
 html{-webkit-font-smoothing:antialiased;scroll-behavior:smooth}
 
 /* ── ЯЗЫК ── */
-.de{display:none}
+.ru{display:none!important}
 body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
+body.de .de{display:inline!important}
+body.ru .ru{display:inline!important}
+body.ru .de{display:none!important}
 
 /* ── ОБЩИЕ ── */
 .s-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
@@ -68,19 +70,6 @@ body.de .de{display:revert!important;visibility:visible}
 }
 </style>
 <!-- === blocks/01_topbar.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!--
   ╔══════════════════════════╗
   ║  БЛОК 01 — TOPBAR        ║
@@ -204,19 +193,6 @@ window.addEventListener('scroll',()=>{
 })();
 </script>
 <!-- === blocks/02_hero.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!--
   ╔════════════════════════════════════╗
   ║  БЛОК 02 — HERO                   ║
@@ -315,190 +291,9 @@ body.de .de{display:revert!important;visibility:visible}
 <section class="hero" id="bd-hero">
 
   <!-- ── ФОНОВАЯ SVG-ИЛЛЮСТРАЦИЯ ИНТЕРЬЕРА САЛОНА ── -->
-  <div class="hero-bg">
-    <div class="hero-scene">
-      <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <!-- Градиенты -->
-          <radialGradient id="hr-amb" cx="62%" cy="30%" r="55%">
-            <stop offset="0%" stop-color="#4A2E18" stop-opacity=".9"/>
-            <stop offset="60%" stop-color="#1E0E08" stop-opacity=".95"/>
-            <stop offset="100%" stop-color="#0A0604" stop-opacity="1"/>
-          </radialGradient>
-          <radialGradient id="hr-spot1" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#C9A87C" stop-opacity=".22"/>
-            <stop offset="100%" stop-color="#C9A87C" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="hr-spot2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#E8D0A8" stop-opacity=".14"/>
-            <stop offset="100%" stop-color="#E8D0A8" stop-opacity="0"/>
-          </radialGradient>
-          <radialGradient id="hr-mirror" cx="50%" cy="0%" r="100%">
-            <stop offset="0%" stop-color="#C9A87C" stop-opacity=".18"/>
-            <stop offset="100%" stop-color="#C9A87C" stop-opacity="0"/>
-          </radialGradient>
-          <filter id="hr-blur4"><feGaussianBlur stdDeviation="4"/></filter>
-          <filter id="hr-blur10"><feGaussianBlur stdDeviation="10"/></filter>
-          <filter id="hr-blur18"><feGaussianBlur stdDeviation="18"/></filter>
-          <filter id="hr-grain">
-            <feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="4" stitchTiles="stitch" result="n"/>
-            <feColorMatrix type="saturate" values="0" in="n" result="g"/>
-            <feComposite in="SourceGraphic" in2="g" operator="in"/>
-            <feBlend in="SourceGraphic" mode="multiply" result="blend"/>
-          </filter>
-          <linearGradient id="hr-floor-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#1A0E08"/>
-            <stop offset="100%" stop-color="#0D0804"/>
-          </linearGradient>
-          <linearGradient id="hr-wall-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2E1E12"/>
-            <stop offset="100%" stop-color="#1A0E08"/>
-          </linearGradient>
-          <linearGradient id="hr-mirror-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#3A2510"/>
-            <stop offset="40%" stop-color="#2A1A0C" stop-opacity=".9"/>
-            <stop offset="100%" stop-color="#150C06" stop-opacity=".7"/>
-          </linearGradient>
-          <linearGradient id="hr-chair-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#3D2818"/>
-            <stop offset="100%" stop-color="#1E1008"/>
-          </linearGradient>
-          <linearGradient id="hr-lamp-g" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#C9A87C" stop-opacity=".8"/>
-            <stop offset="100%" stop-color="#7A5A30" stop-opacity=".3"/>
-          </linearGradient>
-          <linearGradient id="hr-light-cone" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#C9A87C" stop-opacity=".35"/>
-            <stop offset="100%" stop-color="#C9A87C" stop-opacity="0"/>
-          </linearGradient>
-          <mask id="hr-room-mask">
-            <rect width="1440" height="900" fill="white"/>
-          </mask>
-        </defs>
-
-        <!-- FAR: Базовый фон комнаты -->
-        <g class="plx-far">
-          <rect width="1440" height="900" fill="url(#hr-amb)"/>
-          <!-- Стена -->
-          <rect x="420" y="0" width="820" height="660" fill="url(#hr-wall-g)" opacity=".7"/>
-          <!-- Панели стены — вертикальные полосы -->
-          <rect x="430" y="60" width="1" height="560" fill="#C9A87C" opacity=".06"/>
-          <rect x="530" y="60" width="1" height="560" fill="#C9A87C" opacity=".05"/>
-          <rect x="630" y="60" width="1" height="560" fill="#C9A87C" opacity=".05"/>
-          <rect x="730" y="60" width="1" height="560" fill="#C9A87C" opacity=".06"/>
-          <rect x="830" y="60" width="1" height="560" fill="#C9A87C" opacity=".05"/>
-          <rect x="930" y="60" width="1" height="560" fill="#C9A87C" opacity=".05"/>
-          <rect x="1030" y="60" width="1" height="560" fill="#C9A87C" opacity=".04"/>
-          <rect x="1130" y="60" width="1" height="560" fill="#C9A87C" opacity=".04"/>
-          <!-- Горизонтальные молдинги -->
-          <rect x="420" y="120" width="820" height="1" fill="#C9A87C" opacity=".08"/>
-          <rect x="420" y="500" width="820" height="1" fill="#C9A87C" opacity=".06"/>
-          <!-- Плинтус -->
-          <rect x="420" y="640" width="820" height="20" fill="#1E1008" opacity=".8"/>
-        </g>
-
-        <!-- MID: Зеркала, столы, светильники -->
-        <g class="plx-mid">
-          <!-- Большое зеркало центр -->
-          <rect x="620" y="80" width="220" height="480" rx="3" fill="url(#hr-mirror-g)" opacity=".9"/>
-          <rect x="624" y="84" width="212" height="472" rx="2" fill="none" stroke="#C9A87C" stroke-width=".5" opacity=".3"/>
-          <!-- Отражение в зеркале — градиент симуляция -->
-          <rect x="625" y="85" width="210" height="470" fill="url(#hr-mirror)" opacity=".35"/>
-          <!-- Подсветка зеркала сверху -->
-          <rect x="630" y="75" width="200" height="8" rx="2" fill="url(#hr-lamp-g)" opacity=".6"/>
-          <!-- Свет от подсветки зеркала -->
-          <ellipse cx="730" cy="80" rx="90" ry="40" fill="url(#hr-spot1)" filter="url(#hr-blur10)"/>
-
-          <!-- Зеркало левое -->
-          <rect x="470" y="100" width="140" height="380" rx="3" fill="#1E1208" opacity=".85"/>
-          <rect x="473" y="103" width="134" height="374" rx="2" fill="none" stroke="#C9A87C" stroke-width=".4" opacity=".25"/>
-          <rect x="474" y="90" width="130" height="6" rx="2" fill="url(#hr-lamp-g)" opacity=".5"/>
-
-          <!-- Зеркало правое -->
-          <rect x="860" y="100" width="140" height="380" rx="3" fill="#1E1208" opacity=".85"/>
-          <rect x="863" y="103" width="134" height="374" rx="2" fill="none" stroke="#C9A87C" stroke-width=".4" opacity=".2"/>
-          <rect x="864" y="90" width="130" height="6" rx="2" fill="url(#hr-lamp-g)" opacity=".4"/>
-
-          <!-- Рабочий стол центральный -->
-          <rect x="640" y="540" width="180" height="12" rx="2" fill="#2A1A0C" opacity=".9"/>
-          <rect x="650" y="552" width="160" height="90" fill="#1E1008" opacity=".7"/>
-          <!-- Поверхность стола -->
-          <rect x="635" y="536" width="190" height="8" rx="1" fill="#3A2410" opacity=".8"/>
-          <!-- Предметы на столе -->
-          <!-- Флакон 1 -->
-          <rect x="670" y="510" width="8" height="28" rx="3" fill="#4A3020" opacity=".7"/>
-          <rect x="671" y="505" width="6" height="8" rx="2" fill="#C9A87C" opacity=".4"/>
-          <!-- Флакон 2 -->
-          <rect x="690" y="514" width="6" height="24" rx="2" fill="#3D2818" opacity=".7"/>
-          <!-- Флакон 3 высокий -->
-          <rect x="710" y="500" width="7" height="38" rx="3" fill="#5A3A22" opacity=".6"/>
-          <rect x="711" y="496" width="5" height="7" rx="1" fill="#C9A87C" opacity=".3"/>
-          <!-- Небольшой горшок -->
-          <ellipse cx="755" cy="528" rx="16" ry="8" fill="#2A1A10" opacity=".8"/>
-          <rect x="740" y="490" width="30" height="40" rx="4" fill="#1E1408" opacity=".7"/>
-          <!-- Листья растения (зелёный акцент) -->
-          <ellipse cx="740" cy="488" rx="10" ry="14" fill="#2D4A2A" opacity=".55" transform="rotate(-20,740,488)"/>
-          <ellipse cx="762" cy="482" rx="8" ry="12" fill="#3A5C35" opacity=".45" transform="rotate(15,762,482)"/>
-          <ellipse cx="750" cy="475" rx="7" ry="11" fill="#2D4A2A" opacity=".4" transform="rotate(-5,750,475)"/>
-
-          <!-- Стол левый -->
-          <rect x="490" y="555" width="130" height="8" rx="2" fill="#2A1A0C" opacity=".8"/>
-          <rect x="498" y="563" width="114" height="75" fill="#1A0E08" opacity=".65"/>
-
-          <!-- Кресло маникюрное (центр, перед зеркалом) -->
-          <!-- Сиденье -->
-          <rect x="660" y="600" width="140" height="40" rx="6" fill="url(#hr-chair-g)" opacity=".85"/>
-          <!-- Подлокотники -->
-          <rect x="655" y="605" width="15" height="30" rx="3" fill="#2A1808" opacity=".75"/>
-          <rect x="790" y="605" width="15" height="30" rx="3" fill="#2A1808" opacity=".75"/>
-          <!-- Спинка -->
-          <rect x="665" y="560" width="130" height="50" rx="5" fill="#3A2418" opacity=".8"/>
-          <!-- Ножки -->
-          <rect x="672" y="636" width="6" height="22" rx="2" fill="#1A0E08" opacity=".7"/>
-          <rect x="782" y="636" width="6" height="22" rx="2" fill="#1A0E08" opacity=".7"/>
-          <!-- Кресло левое (частично) -->
-          <rect x="500" y="610" width="100" height="35" rx="5" fill="url(#hr-chair-g)" opacity=".6"/>
-          <rect x="505" y="572" width="90" height="44" rx="4" fill="#3A2418" opacity=".65"/>
-        </g>
-
-        <!-- NEAR: Световые эффекты, боке, передний план -->
-        <g class="plx-near">
-          <!-- Конус света от лампы сверху -->
-          <polygon points="700,0 760,0 820,380 640,380" fill="url(#hr-light-cone)" opacity=".25"/>
-          <polygon points="700,0 760,0 820,380 640,380" fill="url(#hr-light-cone)" opacity=".12" filter="url(#hr-blur4)"/>
-
-          <!-- Боке-огни -->
-          <circle cx="840" cy="210" r="90" fill="#C9A87C" fill-opacity=".07" filter="url(#hr-blur18)"/>
-          <circle cx="1050" cy="350" r="60" fill="#E8D0A8" fill-opacity=".05" filter="url(#hr-blur18)"/>
-          <circle cx="600" cy="280" r="70" fill="#C9A87C" fill-opacity=".04" filter="url(#hr-blur10)"/>
-
-          <!-- Точечные огни светильников -->
-          <circle cx="730" cy="72" r="3" fill="#FFE8B0" fill-opacity=".9"/>
-          <circle cx="730" cy="72" r="12" fill="#FFE8B0" fill-opacity=".2" filter="url(#hr-blur4)"/>
-          <circle cx="540" cy="86" r="2" fill="#FFD890" fill-opacity=".7"/>
-          <circle cx="540" cy="86" r="8" fill="#FFD890" fill-opacity=".15" filter="url(#hr-blur4)"/>
-          <circle cx="930" cy="86" r="2" fill="#FFD890" fill-opacity=".65"/>
-          <circle cx="930" cy="86" r="8" fill="#FFD890" fill-opacity=".12" filter="url(#hr-blur4)"/>
-
-          <!-- Вертикальная световая полоса от окна (справа) -->
-          <rect x="1180" y="0" width="2" height="900" fill="#C9A87C" fill-opacity=".06"/>
-          <rect x="1178" y="0" width="40" height="900" fill="#C9A87C" fill-opacity=".015"/>
-
-          <!-- Пол — отражение -->
-          <rect x="420" y="660" width="820" height="240" fill="url(#hr-floor-g)" opacity=".7"/>
-          <rect x="420" y="660" width="820" height="1" fill="#C9A87C" fill-opacity=".08"/>
-          <!-- Отражение на полу -->
-          <rect x="620" y="665" width="220" height="180" fill="url(#hr-mirror-g)" opacity=".08"/>
-
-          <!-- Зернистость -->
-          <rect width="1440" height="900" fill="#000" opacity=".0" filter="url(#hr-grain)"/>
-          <rect width="1440" height="900" fill="url(#hr-amb)" opacity=".06"/>
-        </g>
-      </svg>
-    </div>
-  </div>
-
-  <div class="hero-ov"></div>
+  <div class="hero-bg" style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#1E0E08 0%,#2C1810 40%,#0D0A08 100%);">
+</div>
+<div class="hero-ov"></div>
   <div class="hero-ov2"></div>
 
   <!-- ── ЖИВЫЕ НОТИФИКАЦИИ ── -->
@@ -635,19 +430,6 @@ body.de .de{display:revert!important;visibility:visible}
 })();
 </script>
 <!-- === blocks/03_pain.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 03: PAIN — 6-card grid with micro-animated icons -->
 <style>
 .pain{background:var(--bg,#FBF7F2);padding:96px 0;}
@@ -881,19 +663,6 @@ body.de .de{display:revert!important;visibility:visible}
   </div>
 </section>
 <!-- === blocks/04_solution.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 04: SOLUTION — collage 5 CSS scenes + 6-cell solution grid -->
 <style>
 .sol{background:var(--bg,#FBF7F2);padding:96px 0;}
@@ -1209,19 +978,6 @@ body.de .de{display:revert!important;visibility:visible}
   </div>
 </section>
 <!-- === blocks/05_before_after.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 05: BEFORE/AFTER — drag slider (mouse + touch) -->
 <style>
 .ba{background:#F5EFE8;padding:96px 0;}
@@ -1488,19 +1244,6 @@ body.de .de{display:revert!important;visibility:visible}
 })();
 </script>
 <!-- === blocks/06_case_study.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 06: CASE STUDY — dashboard mockup + animated bar chart -->
 <style>
 .case{background:var(--bg,#FBF7F2);padding:96px 0;}
@@ -1775,19 +1518,6 @@ body.de .de{display:revert!important;visibility:visible}
 })();
 </script>
 <!-- === blocks/07_services.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 07: SERVICES — 8 cards with SVG icons -->
 <style>
 .svc-section{background:var(--bg,#FBF7F2);padding:96px 0;}
@@ -1964,19 +1694,6 @@ body.de .de{display:revert!important;visibility:visible}
   </div>
 </section>
 <!-- === blocks/08_pricing.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 08: PRICING — 4 plans, GROWTH highlighted -->
 <style>
 .pricing{background:#F5EFE8;padding:96px 0;}
@@ -2184,19 +1901,6 @@ body.de .de{display:revert!important;visibility:visible}
   </div>
 </section>
 <!-- === blocks/09_calculator.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 09: CALCULATOR — 3 sliders, loss formula -->
 <style>
 .calc{background:var(--bg,#FBF7F2);padding:96px 0;}
@@ -2378,19 +2082,6 @@ input[type=range].bd-range::-moz-range-track{
 })();
 </script>
 <!-- === blocks/10_reviews.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 10: REVIEWS — 3 testimonials -->
 <style>
 .reviews{background:#F5EFE8;padding:96px 0;}
@@ -2513,19 +2204,6 @@ body.de .de{display:revert!important;visibility:visible}
   </div>
 </section>
 <!-- === blocks/11_faq.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 11: FAQ — accordion -->
 <style>
 .faq-section{background:var(--bg,#FBF7F2);padding:96px 0;}
@@ -2678,19 +2356,6 @@ function bdFaq(el){
 }
 </script>
 <!-- === blocks/12_final_cta.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 12: FINAL CTA — large CTA with decorative scene -->
 <style>
 .fcta{
@@ -2849,19 +2514,6 @@ body.de .de{display:revert!important;visibility:visible}
   </div>
 </div>
 <!-- === blocks/13_process.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 13: PROCESS — 4 steps with IntersectionObserver animation -->
 <style>
 .process{background:var(--bg,#FBF7F2);padding:96px 0;}
@@ -2993,19 +2645,6 @@ body.de .de{display:revert!important;visibility:visible}
 })();
 </script>
 <!-- === blocks/14_guarantees.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 14: GUARANTEES — 3 cards with IntersectionObserver -->
 <style>
 .guarantee{background:#F5EFE8;padding:96px 0;}
@@ -3141,19 +2780,6 @@ body.de .de{display:revert!important;visibility:visible}
 })();
 </script>
 <!-- === blocks/15_trust_bar.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 15: TRUST BAR -->
 <style>
 .trust-bar{
@@ -3253,19 +2879,6 @@ body.de .de{display:revert!important;visibility:visible}
   </div>
 </div>
 <!-- === blocks/16_contact_form.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 16: CONTACT FORM → WhatsApp redirect -->
 <style>
 .contact-section{
@@ -3550,19 +3163,6 @@ body.de .de{display:revert!important;visibility:visible}
 })();
 </script>
 <!-- === blocks/17_footer.html === -->
-<style>
-:root{
-  --gold:#C9A87C;--gold2:#E8D0A8;--gold3:#8C6020;
-  --rose:#7B2D4E;--rose2:#591c36;--rose3:#B05478;
-  --bg:#0D0A08;--bg2:#1A1410;--bg3:#2C2218;
-  --cream:#F8F0E8;
-  --t1:rgba(248,240,232,0.92);--t2:rgba(248,240,232,0.55);--t3:rgba(248,240,232,0.22);
-  --serif:'Cormorant Garamond',Georgia,serif;
-  --sans:'DM Sans',Arial,sans-serif;
-}
-body.de .ru{display:none!important}
-body.de .de{display:revert!important;visibility:visible}
-</style>
 <!-- BLOCK 17: FOOTER -->
 <style>
 footer.bd-footer{
