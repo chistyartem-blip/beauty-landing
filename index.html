@@ -170,6 +170,7 @@ function setLang(l){
   document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.lb')[l==='ru'?0:1].classList.add('on');
   localStorage.setItem('bdLang',l);
+  if(typeof updateSlotTime==='function') updateSlotTime();
 }
 (function(){
   var saved=localStorage.getItem('bdLang')||'de';
@@ -182,7 +183,7 @@ window.addEventListener('scroll',()=>{
 },{passive:true});
 
 // ── СЛЕДУЮЩЕЕ СВОБОДНОЕ ОКНО ──
-(function(){
+function updateSlotTime(){
   var slots=['09:30','10:00','11:15','12:30','14:00','15:15','16:30','17:00'];
   var now=new Date();
   var h=now.getHours(),m=now.getMinutes();
@@ -192,18 +193,22 @@ window.addEventListener('scroll',()=>{
     var sh=+parts[0],sm=+parts[1];
     if(sh>h||(sh===h&&sm>m+10)){next=slots[i];break;}
   }
+  var isRu=document.body.classList.contains('ru');
   if(!next){
-    // Завтра первое окно
-    var days=['Mo','Di','Mi','Do','Fr'];
-    var d=days[(now.getDay()||7)-1+1]||'Mo';
+    var daysDE=['Mo','Di','Mi','Do','Fr'];
+    var daysRU=['Пн','Вт','Ср','Чт','Пт'];
+    var di=(now.getDay()||7)-1+1;
+    var d=isRu?(daysRU[di]||'Пн'):(daysDE[di]||'Mo');
     document.getElementById('slotTime').textContent=d+' 09:30';
   } else {
-    document.getElementById('slotTime').textContent='Heute '+next+' Uhr';
+    document.getElementById('slotTime').textContent=(isRu?'Сегодня ':'Heute ')+next+(isRu?' ч':' Uhr');
   }
+}
+(function(){
+  updateSlotTime();
   setTimeout(function(){
     document.getElementById('slotFloat').classList.add('visible');
   },3500);
-  // Скрыть при скролле вниз
   var lastY=0;
   window.addEventListener('scroll',function(){
     var y=window.scrollY;
