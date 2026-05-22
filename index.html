@@ -15,21 +15,21 @@
 <style>@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap");</style>
 <style>
 /* ── Light section text color overrides ── */
-.ba, .pricing, .reviews, .calc, .faq-section, .case, .process, .contact-section {
+.ba, .pain, .sol, .pricing, .reviews, .calc, .faq-section, .case, .process, .contact-section {
   --t1: #1A0E08;
   --t2: #4A3020;
   --t3: #7A5A44;
 }
-.ba .s-h, .pricing .s-h, .reviews .s-h, .calc .s-h,
+.ba .s-h, .pain .s-h, .sol .s-h, .pricing .s-h, .reviews .s-h, .calc .s-h,
 .faq-section .s-h, .case .s-h, .process .s-h, .contact-section .s-h {
   color: #1A0E08 !important;
 }
-.ba .s-p, .pricing .s-p, .reviews .s-p, .calc .s-p,
+.ba .s-p, .pain .s-p, .sol .s-p, .pricing .s-p, .reviews .s-p, .calc .s-p,
 .faq-section .s-p, .case .s-p, .process .s-p, .contact-section .s-p {
   color: #4A3020 !important;
   font-weight: 400;
 }
-.ba .s-eyebrow-text, .pricing .s-eyebrow-text, .reviews .s-eyebrow-text,
+.ba .s-eyebrow-text, .pain .s-eyebrow-text, .sol .s-eyebrow-text, .pricing .s-eyebrow-text, .reviews .s-eyebrow-text,
 .calc .s-eyebrow-text, .faq-section .s-eyebrow-text, .case .s-eyebrow-text,
 .process .s-eyebrow-text, .contact-section .s-eyebrow-text {
   color: rgba(160,120,70,.75) !important;
@@ -594,6 +594,49 @@ window.addEventListener('scroll',()=>{
   from{transform:rotate(0);}
   to{transform:rotate(360deg);}
 }
+
+/* ── pain card photo thumb ── */
+.pc{cursor:pointer;}
+.pc-photo{
+  width:100%;height:140px;
+  object-fit:cover;border-radius:10px;
+  margin-bottom:14px;
+  display:block;
+  transition:transform .4s ease;
+}
+.pc:hover .pc-photo{transform:scale(1.03);}
+
+/* ── pain modal overlay ── */
+.pm-overlay{
+  display:none;position:fixed;inset:0;z-index:9999;
+  background:rgba(10,5,3,.82);
+  backdrop-filter:blur(8px);
+  align-items:center;justify-content:center;
+  padding:24px;
+}
+.pm-overlay.open{display:flex;}
+.pm-box{
+  background:#fff;border-radius:20px;
+  max-width:540px;width:100%;
+  max-height:90vh;overflow-y:auto;
+  box-shadow:0 32px 80px rgba(0,0,0,.45);
+  animation:pmIn .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes pmIn{from{transform:scale(.88) translateY(20px);opacity:0;}to{transform:scale(1) translateY(0);opacity:1;}}
+.pm-img{width:100%;height:220px;object-fit:cover;border-radius:20px 20px 0 0;display:block;}
+.pm-body{padding:28px 28px 24px;}
+.pm-tag{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(201,168,124,.75);margin-bottom:8px;}
+.pm-title{font-family:'Cormorant Garamond',Georgia,serif;font-size:26px;font-weight:700;color:#1A0E08;line-height:1.2;margin-bottom:14px;}
+.pm-text{font-size:14px;line-height:1.7;color:#4A3020;margin-bottom:18px;}
+.pm-stat{background:rgba(201,168,124,.1);border:1px solid rgba(201,168,124,.25);border-radius:12px;padding:14px 16px;margin-bottom:20px;}
+.pm-stat-num{font-family:'Cormorant Garamond',Georgia,serif;font-size:32px;font-weight:700;color:#C9A87C;line-height:1;}
+.pm-stat-label{font-size:12px;color:#7A5A44;margin-top:4px;}
+.pm-cta{display:block;width:100%;padding:14px;background:linear-gradient(135deg,#C9A87C,#A07840);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.04em;text-align:center;text-decoration:none;transition:opacity .2s;}
+.pm-cta:hover{opacity:.88;}
+.pm-close{position:absolute;top:14px;right:16px;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;line-height:1;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.pm-box{position:relative;}
+.pm-close-btn{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.35);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
+
 </style>
 
 <section class="s pain">
@@ -622,7 +665,8 @@ window.addEventListener('scroll',()=>{
 
     <div class="pain-grid">
       <!-- 01 double booking -->
-      <div class="pc">
+      <div class="pc" onclick="openPainModal(0)" data-modal="0">
+        <img class="pc-photo" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2F0fuhJahEEFquLiS-xWr7Q%2Fpain1_double.jpg" alt="Doppelbuchung" loading="lazy">
         <div class="pc-n">01</div>
         <div class="pc-icon">
           <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><circle cx="12" cy="15" r="1.2" fill="#C9A87C" stroke="none"/></svg>
@@ -633,7 +677,8 @@ window.addEventListener('scroll',()=>{
       </div>
 
       <!-- 02 empty slots -->
-      <div class="pc">
+      <div class="pc" onclick="openPainModal(1)" data-modal="1">
+        <img class="pc-photo" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FsqDffdgqs7uxXTpuOVkOq%2Fpain2_empty.jpg" alt="Leerstunden" loading="lazy">
         <div class="pc-n">02</div>
         <div class="pc-icon">
           <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -643,7 +688,8 @@ window.addEventListener('scroll',()=>{
       </div>
 
       <!-- 03 message chaos -->
-      <div class="pc">
+      <div class="pc" onclick="openPainModal(2)" data-modal="2">
+        <img class="pc-photo" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FaRD4sF8_tq7zyLNCts8DL%2Fpain3_messages.jpg" alt="Nachrichten-Chaos" loading="lazy">
         <div class="pc-n">03</div>
         <div class="pc-icon">
           <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -654,7 +700,8 @@ window.addEventListener('scroll',()=>{
       </div>
 
       <!-- 04 no-show -->
-      <div class="pc">
+      <div class="pc" onclick="openPainModal(3)" data-modal="3">
+        <img class="pc-photo" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2F6olFrspdImwTYEcuR9o5O%2Fpain4_noshow.jpg" alt="No-Show ohne Warnung" loading="lazy">
         <div class="pc-n">04</div>
         <div class="pc-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -664,7 +711,8 @@ window.addEventListener('scroll',()=>{
       </div>
 
       <!-- 05 instagram doesn't sell -->
-      <div class="pc">
+      <div class="pc" onclick="openPainModal(4)" data-modal="4">
+        <img class="pc-photo" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FxGjqbInRa75aGVyS_IoDx%2Fpain5_instagram.jpg" alt="Instagram verkauft nicht" loading="lazy">
         <div class="pc-n">05</div>
         <div class="pc-icon">
           <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><polyline points="8 21 12 17 16 21"/></svg>
@@ -674,7 +722,8 @@ window.addEventListener('scroll',()=>{
       </div>
 
       <!-- 06 firefighting -->
-      <div class="pc">
+      <div class="pc" onclick="openPainModal(5)" data-modal="5">
+        <img class="pc-photo" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FUNt6KPgFN2ElSR826AD52%2Fpain6_chaos.jpg" alt="Sie löschen Brände" loading="lazy">
         <div class="pc-n">06</div>
         <div class="pc-icon">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
@@ -3250,4 +3299,61 @@ footer.bd-footer h5{
     <a class="f-wa" href="https://wa.me/49XXXXXXXXX" target="_blank">WhatsApp</a>
   </div>
 </div>
+
+<!-- ── PAIN MODALS ── -->
+<div class="pm-overlay" id="painOverlay" onclick="closePainModal(event)">
+  <div class="pm-box" id="painModalBox">
+    <button class="pm-close-btn" onclick="closePainModal()">✕</button>
+    <img class="pm-img" id="pmImg" src="" alt="">
+    <div class="pm-body">
+      <div class="pm-tag" id="pmTag"></div>
+      <div class="pm-title" id="pmTitle"></div>
+      <p class="pm-text" id="pmText"></p>
+      <div class="pm-stat">
+        <div class="pm-stat-num" id="pmStatNum"></div>
+        <div class="pm-stat-label" id="pmStatLabel"></div>
+      </div>
+      <a href="#contact" class="pm-cta" onclick="closePainModal()">
+        <span class="ru">Решить это — бесплатная консультация</span>
+        <span class="de">Das lösen — kostenlose Beratung</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var PAIN = [
+    {img:"https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2F0fuhJahEEFquLiS-xWr7Q%2Fpain1_double.jpg",titleRu:"Двойная запись",titleDe:"Doppelbuchung",textRu:"Мастер записал вручную, забыл вычеркнуть окно. Два клиента — одно время. Конфликт, извинения, потерянный клиент. По статистике, 1 из 8 ручных записей содержит ошибку. Это не халатность — это человеческий фактор. Система устраняет его полностью.",textDe:"Manuell eingetragen, Fenster vergessen. Zwei Kunden, ein Termin. Konflikt, Entschuldigungen, verlorener Kunde. Statistisch enthält 1 von 8 manuellen Buchungen einen Fehler. Das ist kein Versagen — das ist menschliches Versagen. Ein System beseitigt es vollständig.",statNum:"1 из 8",statRu:"ручных записей с ошибкой",statDe:"manuelle Buchungen fehlerhaft"},
+    {img:"https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FsqDffdgqs7uxXTpuOVkOq%2Fpain2_empty.jpg",titleRu:"Пустые окна",titleDe:"Leerstunden",textRu:"Google вас не показывает. Рекламы нет. SEO нет. Идеальный мастер без системы — невидимка. В среднем салон теряет 40% потенциальных клиентов только потому, что их не находят в Google. Система создаёт онлайн-присутствие, которое работает 24/7.",textDe:"Google findet Sie nicht. Keine Werbung. Kein SEO. Perfekte Arbeit ohne System — unsichtbar. Im Durchschnitt verliert ein Salon 40% potenzieller Kunden, weil sie bei Google nicht gefunden werden. Das System schafft Online-Präsenz, die 24/7 arbeitet.",statNum:"40%",statRu:"клиентов уходят к конкурентам",statDe:"Kunden gehen zur Konkurrenz"},
+    {img:"https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FaRD4sF8_tq7zyLNCts8DL%2Fpain3_messages.jpg",titleRu:"Хаос в сообщениях",titleDe:"Nachrichten-Chaos",textRu:"Переносы, отмены, голосовые сообщения. Вы отвечаете ночью. Бизнес живёт внутри переписок. Средний мастер тратит 2.5 часа в день на административную переписку — это 37% рабочего времени. Автоматизация возвращает это время вам.",textDe:"Umbuchungen, Absagen, Sprachnachrichten. Sie antworten nachts. Der Betrieb lebt in Nachrichten. Ein durchschnittlicher Meister verbringt 2,5 Stunden täglich mit administrativer Korrespondenz — das sind 37% der Arbeitszeit. Automatisierung gibt Ihnen diese Zeit zurück.",statNum:"2.5 ч",statRu:"в день на переписку",statDe:"täglich für Korrespondenz"},
+    {img:"https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2F6olFrspdImwTYEcuR9o5O%2Fpain4_noshow.jpg",titleRu:"No-show без предупреждения",titleDe:"No-Show ohne Warnung",textRu:"Без напоминаний клиенты забывают. Пустое окно — потерянные деньги. По данным индустрии, 23% клиентов забывают о записи без напоминания. При среднем чеке €60 и 5 мастерах это €3 000–€6 000 потерь в месяц. Автоматические напоминания снижают no-show до 4%.",textDe:"Ohne Erinnerungen vergessen Kunden. Leerstunde — verlorenes Geld. Branchendaten zeigen: 23% der Kunden vergessen Termine ohne Erinnerung. Bei einem Durchschnittspreis von €60 und 5 Meistern sind das €3.000–€6.000 Verlust pro Monat. Automatische Erinnerungen reduzieren No-Shows auf 4%.",statNum:"23%",statRu:"клиентов не приходят без напоминания",statDe:"No-Shows ohne Erinnerungssystem"},
+    {img:"https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FxGjqbInRa75aGVyS_IoDx%2Fpain5_instagram.jpg",titleRu:"Instagram не продаёт",titleDe:"Instagram verkauft nicht",textRu:"Красивые фото не равны системе. Без воронки и онлайн-записи — просто галерея. Лайки не платят аренду. 78% пользователей, заинтересовавшихся услугой в Instagram, не записываются, потому что нет прямой кнопки записи. Интеграция закрывает эту дыру.",textDe:"Schöne Fotos sind kein System. Ohne Funnel und Online-Buchung — nur eine Galerie. Likes zahlen keine Miete. 78% der Instagram-Nutzer, die an einer Leistung interessiert sind, buchen nicht, weil es keinen direkten Buchungsbutton gibt. Die Integration schließt diese Lücke.",statNum:"78%",statRu:"уходят без записи",statDe:"verlassen ohne Buchung"},
+    {img:"https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FUNt6KPgFN2ElSR826AD52%2Fpain6_chaos.jpg",titleRu:"Вы тушите пожары",titleDe:"Sie löschen Brände",textRu:"Всё держится на вас. Отпуск? Выходной? Почти нет. Вместо развития бизнеса вы в операционке 24/7. Владельцы салонов без системы работают в среднем на 14 часов в неделю больше, чем с системой. Делегирование через автоматизацию — это не роскошь, это необходимость.",textDe:"Alles liegt bei Ihnen. Urlaub? Wochenende? Fast nicht. Statt Geschäftsentwicklung sind Sie 24/7 im Betrieb. Salonbesitzer ohne System arbeiten durchschnittlich 14 Stunden pro Woche mehr als mit System. Delegation durch Automatisierung ist kein Luxus, sondern Notwendigkeit.",statNum:"14 ч",statRu:"лишних в неделю без системы",statDe:"mehr pro Woche ohne System"},
+  ];
+  var isDE = document.body.classList.contains('de');
+  window.openPainModal = function(idx){
+    var d = PAIN[idx];
+    isDE = document.body.classList.contains('de');
+    document.getElementById('pmImg').src = d.img;
+    document.getElementById('pmTag').textContent = '0'+(idx+1)+' — Problem';
+    document.getElementById('pmTitle').textContent = isDE ? d.titleDe : d.titleRu;
+    document.getElementById('pmText').textContent = isDE ? d.textDe : d.textRu;
+    document.getElementById('pmStatNum').textContent = d.statNum;
+    document.getElementById('pmStatLabel').textContent = isDE ? d.statDe : d.statRu;
+    document.getElementById('painOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+  window.closePainModal = function(e){
+    if(e && e.target !== document.getElementById('painOverlay') && !e.target.classList.contains('pm-close-btn')) return;
+    document.getElementById('painOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+  // ESC key
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') { document.getElementById('painOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+  });
+})();
+</script>
+
 </body></html>
