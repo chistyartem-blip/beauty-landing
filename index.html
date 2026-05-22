@@ -14,6 +14,28 @@
 -->
 <style>@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap");</style>
 <style>
+/* ── Light section text color overrides ── */
+.ba, .pricing, .reviews, .calc, .faq-section, .case, .process, .contact-section {
+  --t1: #1A0E08;
+  --t2: #4A3020;
+  --t3: #7A5A44;
+}
+.ba .s-h, .pricing .s-h, .reviews .s-h, .calc .s-h,
+.faq-section .s-h, .case .s-h, .process .s-h, .contact-section .s-h {
+  color: #1A0E08 !important;
+}
+.ba .s-p, .pricing .s-p, .reviews .s-p, .calc .s-p,
+.faq-section .s-p, .case .s-p, .process .s-p, .contact-section .s-p {
+  color: #4A3020 !important;
+  font-weight: 400;
+}
+.ba .s-eyebrow-text, .pricing .s-eyebrow-text, .reviews .s-eyebrow-text,
+.calc .s-eyebrow-text, .faq-section .s-eyebrow-text, .case .s-eyebrow-text,
+.process .s-eyebrow-text, .contact-section .s-eyebrow-text {
+  color: rgba(160,120,70,.75) !important;
+}
+</style>
+<style>
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{background:#0D0A08;color:rgba(248,240,232,0.92);min-height:100%}
 :root{
@@ -292,6 +314,7 @@ window.addEventListener('scroll',()=>{
 
   <!-- ── ФОНОВАЯ SVG-ИЛЛЮСТРАЦИЯ ИНТЕРЬЕРА САЛОНА ── -->
   <div class="hero-bg" style="position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,#1E0E08 0%,#2C1810 40%,#0D0A08 100%);">
+  <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FXzRJLOqYTY-6oROvX4ei_%2Fhero_bg_sm.jpg" alt="" style="width:100%;height:100%;object-fit:cover;opacity:.45;display:block;">
 </div>
 <div class="hero-ov"></div>
   <div class="hero-ov2"></div>
@@ -708,59 +731,18 @@ window.addEventListener('scroll',()=>{
 
 /* --- scene CSS illustrations --- */
 
-/* Scene 1: Online Booking — calendar interface */
+/* Scene 1: Online Booking — real photo */
 .scene-1{
   background:linear-gradient(135deg,#1A0E08 0%,#2E1A0E 100%);
-}
-.scene-1::before{
-  content:'';
-  position:absolute;
-  top:18px;left:50%;transform:translateX(-50%);
-  width:68%;height:62%;
-  background:#FBF7F2;
-  border-radius:8px;
-  box-shadow:0 8px 32px rgba(0,0,0,.35);
-}
-.scene-1::after{
-  content:'';
-  position:absolute;
-  top:30px;left:50%;transform:translateX(-50%);
-  width:62%;height:4px;
-  background:var(--gold,#C9A87C);
-  border-radius:2px;
-  box-shadow:
-    0 12px 0 rgba(201,168,124,.3),
-    0 20px 0 rgba(201,168,124,.2),
-    0 28px 0 rgba(201,168,124,.15),
-    0 36px 0 rgba(201,168,124,.1),
-    0 44px 0 rgba(201,168,124,.08),
-    0 52px 0 rgba(201,168,124,.06);
+  background-image:url('https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2Fc8YxWY2WlZREVJpWIsS7H%2Fcollage_booking_sm.jpg');
+  background-size:cover;background-position:center;
 }
 
-/* Scene 2: SEO & Google — search bar */
+/* Scene 2: SEO & Google — real photo */
 .scene-2{
   background:linear-gradient(160deg,#0F2027 0%,#203A43 50%,#2C5364 100%);
-}
-.scene-2::before{
-  content:'🔍 Maniküre Göppingen';
-  position:absolute;
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  background:#fff;
-  border-radius:24px;
-  padding:8px 16px;
-  font-size:11px;font-weight:600;
-  color:#1A0E08;
-  white-space:nowrap;
-  box-shadow:0 4px 24px rgba(0,0,0,.3);
-  letter-spacing:.02em;
-}
-.scene-2::after{
-  content:'';
-  position:absolute;
-  bottom:22px;left:50%;transform:translateX(-50%);
-  width:60%;height:3px;
-  border-radius:2px;
-  background:linear-gradient(90deg,#4285F4,#EA4335,#FBBC05,#34A853);
+  background-image:url('https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FYwZN-uA6qDpTwgjDClo3x%2Fcollage_seo_sm.jpg');
+  background-size:cover;background-position:center;
 }
 
 /* Scene 3: Analytics — bar chart */
@@ -809,32 +791,11 @@ window.addEventListener('scroll',()=>{
   border-radius:4px;
 }
 
-/* Scene 5: CRM / Automation — chat bubbles */
+/* Scene 5: CRM / Automation — real photo */
 .scene-5{
   background:linear-gradient(160deg,#1A0E08 0%,#2E1A0E 100%);
-}
-.scene-5::before{
-  content:'';
-  position:absolute;
-  top:20px;left:14px;right:14px;bottom:20px;
-  background:
-    /* bubble 1 */
-    rgba(201,168,124,.25) 0% 0%/62% 18% border-box no-repeat,
-    /* bubble 2 */
-    rgba(255,255,255,.12) 38% 28%/58% 18% border-box no-repeat,
-    /* bubble 3 */
-    rgba(201,168,124,.25) 0% 56%/55% 18% border-box no-repeat,
-    /* bubble 4 auto */
-    rgba(78,155,111,.3) 38% 84%/60% 18% border-box no-repeat;
-  border-radius:10px;
-}
-.scene-5::after{
-  content:'✓✓';
-  position:absolute;
-  bottom:26px;right:28px;
-  font-size:11px;
-  color:rgba(78,155,111,.85);
-  font-weight:700;
+  background-image:url('https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FfT0hucRQbK2tfZ491R3lU%2Fcollage_crm_sm.jpg');
+  background-size:cover;background-position:center;
 }
 
 /* ===== SOL GRID ===== */
@@ -1012,30 +973,23 @@ window.addEventListener('scroll',()=>{
 /* === BEFORE scene: messy chaos === */
 .ba-b-scene{
   position:absolute;inset:0;
-  background:linear-gradient(160deg,#2E1A0E 0%,#1A0E08 100%);
+  background:linear-gradient(160deg,#3D1F10 0%,#2A1208 100%);
 }
 .ba-b-scene::before{
   content:'';
   position:absolute;inset:0;
   background:
-    /* notebook lines */
     repeating-linear-gradient(
       0deg,
       transparent,
-      transparent 22px,
-      rgba(201,168,124,.12) 22px,
-      rgba(201,168,124,.12) 23px
+      transparent 28px,
+      rgba(201,168,124,.08) 28px,
+      rgba(201,168,124,.08) 29px
     );
 }
 .ba-b-scene::after{
-  content:'📓\A WhatsApp\A Блокнот\A ❌ No-show';
-  white-space:pre;
-  position:absolute;
-  top:50%;left:50%;transform:translate(-50%,-50%);
-  text-align:center;
-  font-size:13px;line-height:2;
-  color:rgba(255,255,255,.35);
-  font-family:var(--sans,'Inter'),sans-serif;
+  content:'';
+  position:absolute;inset:0;
 }
 
 /* === AFTER scene: clean dashboard === */
@@ -1176,7 +1130,15 @@ window.addEventListener('scroll',()=>{
     <div class="ba-wrap" id="baWrap">
       <!-- BEFORE -->
       <div class="ba-side ba-b" id="baBefore">
-        <div class="ba-b-scene"></div>
+        <div class="ba-b-scene">
+          <!-- chaos visual: notebook lines -->
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;padding:60px 24px 80px;">
+            <div style="font-size:28px;opacity:.5;filter:grayscale(1);">📓</div>
+            <div style="font-size:12px;color:rgba(255,255,255,.45);font-family:var(--sans);text-align:center;line-height:2;">
+              WhatsApp<br>Блокнот<br><span style="color:rgba(255,120,120,.7);">✗ No-show</span>
+            </div>
+          </div>
+        </div>
         <div class="ba-b-label"><span class="ru">До</span><span class="de">Vorher</span></div>
         <div class="ba-b-items">
           <div class="ba-item"><span class="ba-x">✗</span><span class="ru">Блокнот и WhatsApp</span><span class="de">Notizbuch &amp; WhatsApp</span></div>
@@ -2123,26 +2085,28 @@ input[type=range].bd-range::-moz-range-track{
 }
 
 .rv-text{
-  font-size:15px;line-height:1.7;
-  color:var(--t1,#1A0E08);
+  font-size:15px;line-height:1.75;
+  color:#2A1810;
   font-style:italic;
   margin:0 0 20px;
   position:relative;z-index:1;
+  font-weight:400;
 }
 .rv-sep{
   height:1px;
   background:rgba(201,168,124,.2);
   margin-bottom:16px;
 }
+.rv-footer{display:flex;align-items:center;gap:12px;}
+.rv-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(201,168,124,.3);flex-shrink:0;}
 .rv-name{
   font-size:14px;font-weight:700;
-  color:var(--t1,#1A0E08);
+  color:#1A0E08;
   margin-bottom:3px;
 }
 .rv-loc{
   font-size:12px;
-  color:var(--t2,#5A4030);
-  opacity:.6;
+  color:#6B4C38;
   letter-spacing:.04em;
 }
 </style>
@@ -2171,8 +2135,7 @@ input[type=range].bd-range::-moz-range-track{
           <span class="de">„Im ersten Monat haben sich die Buchungen verdoppelt. Ich antworte nicht mehr nachts."</span>
         </p>
         <div class="rv-sep"></div>
-        <div class="rv-name">Анна К. / Anna K.</div>
-        <div class="rv-loc">Nail Studio, Stuttgart</div>
+        <div class="rv-footer"><img class="rv-avatar" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FMdC3nXWiMqrg2QVMtDTYU%2Freview_client1_sm.jpg" alt="Anna K."><div><div class="rv-name">Анна К. / Anna K.</div><div class="rv-loc">Nail Studio, Stuttgart</div></div></div>
       </div>
 
       <div class="rv">
@@ -2184,8 +2147,7 @@ input[type=range].bd-range::-moz-range-track{
           <span class="de">„Uns findet man jetzt auf Google — Kunden schreiben von selbst."</span>
         </p>
         <div class="rv-sep"></div>
-        <div class="rv-name">Мария Л. / Maria L.</div>
-        <div class="rv-loc">Beauty Studio, Göppingen</div>
+        <div class="rv-footer"><img class="rv-avatar" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FHOZ_vPyHH4PYBpdR9lc93%2Freview_client2_sm.jpg" alt="Maria L."><div><div class="rv-name">Мария Л. / Maria L.</div><div class="rv-loc">Beauty Studio, Göppingen</div></div></div>
       </div>
 
       <div class="rv">
@@ -2197,8 +2159,7 @@ input[type=range].bd-range::-moz-range-track{
           <span class="de">„No-Shows sanken von 25% auf 4%. Das ist echtes Geld, das früher verschwunden ist."</span>
         </p>
         <div class="rv-sep"></div>
-        <div class="rv-name">Елена В. / Elena V.</div>
-        <div class="rv-loc">Lash Studio, München</div>
+        <div class="rv-footer"><img class="rv-avatar" src="https://storage.googleapis.com/runable-templates/cli-uploads%2FjmqZlqvXaTqLWf8EkNEwORpy6Vzin9JH%2FK3embq8pPTuHFtuJ-5AEG%2Freview_client3_sm.jpg" alt="Elena V."><div><div class="rv-name">Елена В. / Elena V.</div><div class="rv-loc">Lash Studio, München</div></div></div>
       </div>
     </div>
   </div>
