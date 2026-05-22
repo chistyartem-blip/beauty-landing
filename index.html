@@ -167,6 +167,7 @@ body.ru .de{display:none!important}
 // ── ЯЗЫК ──
 function setLang(l){
   document.body.classList.toggle('de',l==='de');
+  document.body.classList.toggle('ru',l==='ru');
   document.querySelectorAll('.lb').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.lb')[l==='ru'?0:1].classList.add('on');
   localStorage.setItem('bdLang',l);
