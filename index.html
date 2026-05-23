@@ -247,10 +247,19 @@ body::before {
 
 /* ── REVEAL ── */
 .reveal {
-  opacity: 0; transform: translateY(40px);
-  transition: opacity 0.9s cubic-bezier(0.2,0.9,0.3,1), transform 0.9s cubic-bezier(0.2,0.9,0.3,1);
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+  will-change: transform, opacity;
 }
-.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal.in { opacity: 1; transform: translate3d(0, 0, 0); }
+@media (max-width: 767px) {
+  .reveal {
+    transform: none;
+    transition: opacity 0.4s ease;
+  }
+  .reveal.in { transform: none; }
+}
 
 /* ── СЕКЦИИ — ОБЩЕЕ ── */
 section { position: relative; z-index: 5; }
@@ -1828,15 +1837,35 @@ function setLang(l) {
 })();
 
 // ── TOPBAR SCROLL ──
-window.addEventListener('scroll', function() {
-  document.getElementById('topbar').classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+(function() {
+  var topbar = document.getElementById('topbar');
+  var ttick = false;
+  window.addEventListener('scroll', function() {
+    if (!ttick) {
+      requestAnimationFrame(function() {
+        if (topbar) topbar.classList.toggle('scrolled', window.scrollY > 60);
+        ttick = false;
+      });
+      ttick = true;
+    }
+  }, { passive: true });
+})();
 
 // ── PROGRESS BAR ──
-window.addEventListener('scroll', function() {
-  var p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
-  document.getElementById('progress').style.width = (p * 100) + '%';
-}, { passive: true });
+(function() {
+  var pbar = document.getElementById('progress');
+  var ptick = false;
+  window.addEventListener('scroll', function() {
+    if (!ptick) {
+      requestAnimationFrame(function() {
+        var p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+        if (pbar) pbar.style.width = (p * 100) + '%';
+        ptick = false;
+      });
+      ptick = true;
+    }
+  }, { passive: true });
+})();
 
 // ── CUSTOM CURSOR (z-index выше попапа) ──
 (function() {
@@ -1877,11 +1906,18 @@ window.addEventListener('scroll', function() {
 
 // ── PARALLAX HERO BG (лёгкий) ──
 (function() {
+  if (window.innerWidth < 768) return; // отключаем на мобилке
   var heroBg = document.querySelector('.hero-bg img');
   if (!heroBg) return;
+  var ticking = false;
   window.addEventListener('scroll', function() {
-    var s = window.scrollY;
-    heroBg.style.transform = 'translateY(' + (s * 0.25) + 'px) scale(1.08)';
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        heroBg.style.transform = 'translate3d(0,' + (window.scrollY * 0.22) + 'px,0) scale(1.08)';
+        ticking = false;
+      });
+      ticking = true;
+    }
   }, { passive: true });
 })();
 
@@ -2007,11 +2043,18 @@ updateSlotTime();
 
 // ── REVEAL ON SCROLL ──
 (function() {
+  var isMobile = window.innerWidth < 768;
   var obs = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) {
-      if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      }
     });
-  }, { threshold: 0.12 });
+  }, {
+    threshold: isMobile ? 0.04 : 0.08,
+    rootMargin: isMobile ? '0px 0px -20px 0px' : '0px 0px -40px 0px'
+  });
   document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 })();
 
