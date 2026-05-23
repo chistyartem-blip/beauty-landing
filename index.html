@@ -561,9 +561,9 @@ section { position: relative; z-index: 5; }
 @keyframes shimmer { 0%{background-position:0% center} 100%{background-position:200% center} }
 @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
 .hero-sub {
-  font-size: 17px; color: var(--t2); line-height: 1.75;
+  font-size: 17px; color: rgba(247,240,227,.82); line-height: 1.75;
   max-width: 520px; margin-bottom: 44px; font-weight: 300;
-  text-shadow: 0 1px 14px rgba(0,0,0,.4);
+  text-shadow: 0 1px 14px rgba(0,0,0,.55);
   animation: fadeUp .8s .65s ease both;
 }
 .hero-btns { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 60px; animation: fadeUp .8s .8s ease both; }
@@ -1118,6 +1118,63 @@ footer.bd-footer h5 { font-family: var(--mono); font-size: 10px; font-weight: 50
   .c-dot, .c-ring { display: none; }
   body { cursor: auto; }
 }
+
+/* ═══ PRICING POPUPS ═══ */
+.pg-popup-overlay {
+  position: fixed; inset: 0; z-index: 999;
+  background: rgba(15,6,10,.72); backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s ease;
+}
+.pg-popup-overlay.open { opacity: 1; pointer-events: all; }
+.pg-popup {
+  background: linear-gradient(160deg, #FDF8F3 0%, #F5EDE2 100%);
+  border: 1px solid rgba(201,123,142,.20);
+  border-radius: 24px; padding: 48px 52px;
+  max-width: 640px; width: calc(100% - 40px);
+  max-height: 88vh; overflow-y: auto;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(15,6,10,.35);
+  transform: translateY(20px);
+  transition: transform .3s ease;
+}
+.pg-popup-overlay.open .pg-popup { transform: translateY(0); }
+.pg-popup-close {
+  position: absolute; top: 20px; right: 24px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(201,123,142,.10); border: 1px solid rgba(201,123,142,.20);
+  color: var(--accent); font-size: 18px; line-height: 36px; text-align: center;
+  cursor: pointer; transition: background .2s;
+}
+.pg-popup-close:hover { background: rgba(201,123,142,.20); }
+.pg-popup-tier { font-family: var(--mono); font-size: 10px; letter-spacing: .22em; color: rgba(201,123,142,.55); margin-bottom: 6px; }
+.pg-popup-name { font-family: var(--serif); font-size: 36px; font-weight: 300; color: var(--rose); margin-bottom: 6px; }
+.pg-popup-price { font-family: var(--serif); font-size: 28px; color: var(--accent); margin-bottom: 8px; }
+.pg-popup-price sub { font-size: 13px; color: var(--t3); font-family: var(--sans); }
+.pg-popup-note { font-size: 12px; color: var(--t3); margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid rgba(201,123,142,.14); }
+.pg-popup-section { margin-bottom: 22px; }
+.pg-popup-section-title {
+  font-family: var(--sans); font-size: 10px; font-weight: 700;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.pg-popup-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pg-popup-items li {
+  font-size: 14px; color: var(--t1); display: flex; gap: 10px; align-items: flex-start; line-height: 1.45;
+}
+.pg-popup-items li::before { content: '✓'; color: var(--accent); font-weight: 700; font-size: 11px; margin-top: 2px; flex-shrink: 0; }
+.pg-popup-items li span.pp-sub { font-size: 12px; color: var(--t3); display: block; margin-top: 1px; }
+.pg-popup-cta {
+  width: 100%; padding: 16px; border-radius: 100px; border: none;
+  background: linear-gradient(135deg, var(--accent-deep), var(--accent));
+  color: #fff; font-size: 13px; font-weight: 600; letter-spacing: .08em;
+  text-transform: uppercase; cursor: pointer; margin-top: 28px;
+  transition: transform .2s, box-shadow .2s; font-family: var(--sans);
+}
+.pg-popup-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(201,123,142,.45); }
+@media(max-width:600px) { .pg-popup { padding: 36px 24px; } .pg-popup-name { font-size: 28px; } }
+
 </style>
 </head>
 <body class="de">
@@ -1507,6 +1564,8 @@ footer.bd-footer h5 { font-family: var(--mono); font-size: 10px; font-weight: 50
       </h2>
     </div>
     <div class="price-grid">
+
+      <!-- START -->
       <div class="pg reveal">
         <div class="pg-tier">START</div>
         <div class="pg-name"><span class="ru">Старт</span><span class="de">Start</span></div>
@@ -1519,10 +1578,17 @@ footer.bd-footer h5 { font-family: var(--mono); font-size: 10px; font-weight: 50
           <li><span class="ru">Базовый Instagram</span><span class="de">Basis Instagram</span></li>
           <li>WhatsApp Button</li>
         </ul>
-        <button class="pg-btn" onclick="document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
-          <span class="ru">Начать</span><span class="de">Starten</span>
-        </button>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto">
+          <button class="pg-btn" style="background:rgba(201,123,142,.08);color:var(--accent);border-color:rgba(201,123,142,.30)" onclick="openPgPopup('start')">
+            <span class="ru">Что входит →</span><span class="de">Details →</span>
+          </button>
+          <button class="pg-btn" onclick="document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
+            <span class="ru">Начать</span><span class="de">Starten</span>
+          </button>
+        </div>
       </div>
+
+      <!-- GROWTH -->
       <div class="pg feat reveal">
         <div class="pg-badge"><span class="ru">Популярный</span><span class="de">Beliebt</span></div>
         <div class="pg-tier">GROWTH</div>
@@ -1536,10 +1602,17 @@ footer.bd-footer h5 { font-family: var(--mono); font-size: 10px; font-weight: 50
           <li>Analytics GA4</li>
           <li>CRM Integration</li>
         </ul>
-        <button class="pg-btn" onclick="document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
-          <span class="ru">Хочу систему</span><span class="de">System anfragen</span>
-        </button>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto">
+          <button class="pg-btn" style="background:rgba(255,255,255,.12);color:rgba(247,240,227,.85);border-color:rgba(255,255,255,.25)" onclick="openPgPopup('growth')">
+            <span class="ru">Что входит →</span><span class="de">Details →</span>
+          </button>
+          <button class="pg-btn" onclick="document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
+            <span class="ru">Хочу систему</span><span class="de">System anfragen</span>
+          </button>
+        </div>
       </div>
+
+      <!-- PREMIUM -->
       <div class="pg reveal">
         <div class="pg-tier">PREMIUM</div>
         <div class="pg-name">Premium</div>
@@ -1552,10 +1625,17 @@ footer.bd-footer h5 { font-family: var(--mono); font-size: 10px; font-weight: 50
           <li><span class="ru">Система отзывов</span><span class="de">Bewertungssystem</span></li>
           <li>Retention-System</li>
         </ul>
-        <button class="pg-btn" onclick="document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
-          <span class="ru">Узнать больше</span><span class="de">Mehr erfahren</span>
-        </button>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto">
+          <button class="pg-btn" style="background:rgba(201,123,142,.08);color:var(--accent);border-color:rgba(201,123,142,.30)" onclick="openPgPopup('premium')">
+            <span class="ru">Что входит →</span><span class="de">Details →</span>
+          </button>
+          <button class="pg-btn" onclick="document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
+            <span class="ru">Узнать больше</span><span class="de">Mehr erfahren</span>
+          </button>
+        </div>
       </div>
+
+      <!-- AI BEAUTY -->
       <div class="pg reveal">
         <div class="pg-tier">AI SYSTEM</div>
         <div class="pg-name">AI Beauty</div>
@@ -1568,13 +1648,210 @@ footer.bd-footer h5 { font-family: var(--mono); font-size: 10px; font-weight: 50
           <li>AI Content Generation</li>
           <li>CRM Ecosystem</li>
         </ul>
-        <button class="pg-btn" onclick="document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
-          <span class="ru">Обсудить</span><span class="de">Besprechen</span>
-        </button>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:auto">
+          <button class="pg-btn" style="background:rgba(201,123,142,.08);color:var(--accent);border-color:rgba(201,123,142,.30)" onclick="openPgPopup('ai')">
+            <span class="ru">Что входит →</span><span class="de">Details →</span>
+          </button>
+          <button class="pg-btn" onclick="document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
+            <span class="ru">Обсудить</span><span class="de">Besprechen</span>
+          </button>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
+
+<!-- ═══ POPUP OVERLAYS ═══ -->
+<div class="pg-popup-overlay" id="popup-start" onclick="if(event.target===this)closePgPopup()">
+  <div class="pg-popup">
+    <div class="pg-popup-close" onclick="closePgPopup()">✕</div>
+    <div class="pg-popup-tier">START</div>
+    <div class="pg-popup-name"><span class="ru">Старт</span><span class="de">Start</span></div>
+    <div class="pg-popup-price">€490 <sub>— 790</sub></div>
+    <div class="pg-popup-note ru">Единоразовый платёж. Никаких скрытых комиссий. Вы получаете готовую систему, которую сразу можно запустить.</div>
+    <div class="pg-popup-note de">Einmalige Zahlung. Keine versteckten Kosten. Sie erhalten ein fertiges System, das sofort startet.</div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Что входит в пакет</div>
+      <div class="pg-popup-section-title de">Was ist enthalten</div>
+      <ul class="pg-popup-items">
+        <li><div><b>Landing Page</b><span class="pp-sub ru">Профессиональный одностраничный сайт на вас лично — дизайн, тексты, мобильная версия. Настраиваем за 5 дней.</span><span class="pp-sub de">Professionelle One-Page-Website — Design, Texte, Mobile. Fertig in 5 Tagen.</span></div></li>
+        <li><div><b>Booking Widget</b><span class="pp-sub ru">Кнопка онлайн-записи прямо на сайте. Клиентка выбирает время сама — вы просто получаете уведомление.</span><span class="pp-sub de">Online-Buchungs-Button auf der Website. Kunden buchen selbst, Sie erhalten eine Benachrichtigung.</span></div></li>
+        <li><div><b>Google Business Profile</b><span class="pp-sub ru">Настройка и оптимизация вашей карточки в Google Maps. Клиенты находят вас по локации.</span><span class="pp-sub de">Einrichtung und Optimierung Ihres Google Maps Eintrags. Kunden finden Sie lokal.</span></div></li>
+        <li><div><b><span class="ru">Базовый Instagram</span><span class="de">Basis Instagram</span></b><span class="pp-sub ru">Оформление профиля, шапка, highlights, 3 шаблона для постов. Выглядит профессионально с первого взгляда.</span><span class="pp-sub de">Profilgestaltung, Bio, Highlights, 3 Post-Vorlagen. Professioneller erster Eindruck.</span></div></li>
+        <li><div><b>WhatsApp Button</b><span class="pp-sub ru">Кнопка быстрого контакта — клиентка пишет вам в один клик, без поиска номера.</span><span class="pp-sub de">Ein-Klick-Kontakt über WhatsApp — kein Suchen der Nummer.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Для кого</div>
+      <div class="pg-popup-section-title de">Für wen</div>
+      <ul class="pg-popup-items">
+        <li><span class="ru">Мастера-одиночки: ногти, брови, ресницы, массаж</span><span class="de">Einzelmeister: Nails, Brows, Lashes, Massage</span></li>
+        <li><span class="ru">Начинающие или те, кто хочет выглядеть серьёзно</span><span class="de">Anfänger oder Meister, die professionell wirken wollen</span></li>
+        <li><span class="ru">Работаете на дому или арендуете кабинет</span><span class="de">Heimarbeit oder Kabinett-Miete</span></li>
+      </ul>
+    </div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Срок и условия</div>
+      <div class="pg-popup-section-title de">Zeitraum & Bedingungen</div>
+      <ul class="pg-popup-items">
+        <li><span class="ru">Запуск за 5–10 рабочих дней</span><span class="de">Launch in 5–10 Werktagen</span></li>
+        <li><span class="ru">50% предоплата, 50% после сдачи</span><span class="de">50% Anzahlung, 50% nach Abnahme</span></li>
+        <li><span class="ru">1 месяц поддержки включён бесплатно</span><span class="de">1 Monat Support inklusive</span></li>
+      </ul>
+    </div>
+
+    <button class="pg-popup-cta" onclick="closePgPopup();document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
+      <span class="ru">Хочу такой пакет — написать</span><span class="de">Dieses Paket anfragen</span>
+    </button>
+  </div>
+</div>
+
+<div class="pg-popup-overlay" id="popup-growth" onclick="if(event.target===this)closePgPopup()">
+  <div class="pg-popup">
+    <div class="pg-popup-close" onclick="closePgPopup()">✕</div>
+    <div class="pg-popup-tier">GROWTH</div>
+    <div class="pg-popup-name"><span class="ru">Рост</span><span class="de">Wachstum</span></div>
+    <div class="pg-popup-price">€1.500 <sub>— 2.500</sub></div>
+    <div class="pg-popup-note ru">Полноценная система привлечения и удержания клиентов. Вложили — забыли — клиенты приходят сами.</div>
+    <div class="pg-popup-note de">Ein vollständiges System zur Kundengewinnung und -bindung. Einmal eingerichtet — Kunden kommen automatisch.</div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Что входит в пакет</div>
+      <div class="pg-popup-section-title de">Was ist enthalten</div>
+      <ul class="pg-popup-items">
+        <li><div><b>Premium Website</b><span class="pp-sub ru">Многостраничный сайт с портфолио, услугами, ценами, отзывами и формой записи. Дизайн под ваш бренд.</span><span class="pp-sub de">Mehrseitige Website mit Portfolio, Leistungen, Preisen, Bewertungen und Buchungsformular.</span></div></li>
+        <li><div><b><span class="ru">Автоматизация + напоминания</span><span class="de">Automatisierung + Erinnerungen</span></b><span class="pp-sub ru">WhatsApp/SMS-напоминания за 24ч и 2ч до записи. No-show снижается на 60–80%. Подтверждение, перенос — всё автоматически.</span><span class="pp-sub de">WhatsApp/SMS-Erinnerungen 24h und 2h vor dem Termin. No-Shows sinken um 60–80%.</span></div></li>
+        <li><div><b>SEO + Google Ads</b><span class="pp-sub ru">Оптимизация сайта под поиск + настройка рекламы в Google. Клиентки находят вас когда ищут «маникюр [ваш город]».</span><span class="pp-sub de">Website-Optimierung für Suche + Google Ads-Einrichtung. Kunden finden Sie bei «Nagelpflege [Ihre Stadt]».</span></div></li>
+        <li><div><b>Analytics GA4</b><span class="pp-sub ru">Полная аналитика: откуда приходят клиенты, какие услуги смотрят, где уходят. Принимаете решения на данных.</span><span class="pp-sub de">Vollständige Analyse: Woher kommen Kunden, welche Seiten besuchen sie, wo springen sie ab.</span></div></li>
+        <li><div><b>CRM Integration</b><span class="pp-sub ru">База клиентов с историей визитов, датами рождения, предпочтениями. Поздравляете — возвращаются.</span><span class="pp-sub de">Kundendatenbank mit Besuchshistorie, Geburtstagen, Präferenzen. Gratulieren = Wiederkommen.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Для кого</div>
+      <div class="pg-popup-section-title de">Für wen</div>
+      <ul class="pg-popup-items">
+        <li><span class="ru">Салоны с 2–5 мастерами</span><span class="de">Salons mit 2–5 Meistern</span></li>
+        <li><span class="ru">Уже есть клиенты, но хотите системный рост</span><span class="de">Bereits Stammkunden, aber Sie wollen systematisches Wachstum</span></li>
+        <li><span class="ru">Устали от no-show и ручного напоминания</span><span class="de">Müde von No-Shows und manuellen Erinnerungen</span></li>
+      </ul>
+    </div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Срок и условия</div>
+      <div class="pg-popup-section-title de">Zeitraum & Bedingungen</div>
+      <ul class="pg-popup-items">
+        <li><span class="ru">Запуск за 2–4 недели</span><span class="de">Launch in 2–4 Wochen</span></li>
+        <li><span class="ru">50% предоплата, 50% после запуска</span><span class="de">50% Anzahlung, 50% nach Launch</span></li>
+        <li><span class="ru">3 месяца поддержки включены</span><span class="de">3 Monate Support inklusive</span></li>
+        <li><span class="ru">Средний ROI клиентов: +€2.400/мес уже в первый месяц</span><span class="de">Durchschnittlicher ROI: +€2.400/Monat bereits im ersten Monat</span></li>
+      </ul>
+    </div>
+
+    <button class="pg-popup-cta" onclick="closePgPopup();document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
+      <span class="ru">Хочу эту систему — написать</span><span class="de">Dieses System anfragen</span>
+    </button>
+  </div>
+</div>
+
+<div class="pg-popup-overlay" id="popup-premium" onclick="if(event.target===this)closePgPopup()">
+  <div class="pg-popup">
+    <div class="pg-popup-close" onclick="closePgPopup()">✕</div>
+    <div class="pg-popup-tier">PREMIUM</div>
+    <div class="pg-popup-name">Premium</div>
+    <div class="pg-popup-price">€3.500 <sub>— 6.000+</sub></div>
+    <div class="pg-popup-note ru">Полный брендинг и маркетинговая экосистема для студий, которые хотят доминировать в своём городе.</div>
+    <div class="pg-popup-note de">Vollständiges Branding und Marketing-Ökosystem für Studios, die in ihrer Stadt dominieren wollen.</div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Что входит в пакет</div>
+      <div class="pg-popup-section-title de">Was ist enthalten</div>
+      <ul class="pg-popup-items">
+        <li><div><b>Branding + Funnel</b><span class="pp-sub ru">Логотип, цвета, шрифты, tone of voice — полный фирменный стиль. Воронка продаж: от первого контакта до записи и возврата.</span><span class="pp-sub de">Logo, Farben, Schriften, Tonalität — vollständige Corporate Identity + Verkaufstrichter.</span></div></li>
+        <li><div><b>Advanced SEO + Ads</b><span class="pp-sub ru">Комплексное SEO (всё в топ-3), Google Ads, Instagram/Facebook реклама. Ежемесячная оптимизация.</span><span class="pp-sub de">Komplexes SEO (Top-3), Google Ads, Instagram/Facebook Werbung. Monatliche Optimierung.</span></div></li>
+        <li><div><b><span class="ru">Сложная логика записи</span><span class="de">Erweiterte Buchungslogik</span></b><span class="pp-sub ru">Онлайн-запись к конкретному мастеру, по услуге, с учётом времени процедур. Автоопределение слотов.</span><span class="pp-sub de">Online-Buchung nach Meister, Leistung, Behandlungsdauer. Automatische Slot-Erkennung.</span></div></li>
+        <li><div><b><span class="ru">Система отзывов</span><span class="de">Bewertungssystem</span></b><span class="pp-sub ru">Автозапрос отзыва после визита в WhatsApp. Интеграция с Google и сайтом. Негативные — фильтруются, позитивные — публикуются.</span><span class="pp-sub de">Auto-Bewertungsanfrage nach dem Termin. Google-Integration. Negatives wird gefiltert.</span></div></li>
+        <li><div><b>Retention-System</b><span class="pp-sub ru">Email + WhatsApp-цепочки для возврата клиенток: «Прошло 4 недели — время обновить маникюр». Повторные визиты растут на 40%.</span><span class="pp-sub de">Email + WhatsApp-Sequenzen: «4 Wochen vergangen — Zeit für neue Nägel». Wiederbesuche +40%.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Для кого</div>
+      <div class="pg-popup-section-title de">Für wen</div>
+      <ul class="pg-popup-items">
+        <li><span class="ru">Студии с 5+ мастерами, несколько услуг</span><span class="de">Studios mit 5+ Meistern, mehrere Leistungen</span></li>
+        <li><span class="ru">Хотите выйти в топ города / стать №1 в нише</span><span class="de">Sie wollen Stadtführer / Nummer 1 in Ihrer Nische werden</span></li>
+        <li><span class="ru">Уже работает реклама, но нет системного роста</span><span class="de">Werbung läuft, aber kein systematisches Wachstum</span></li>
+      </ul>
+    </div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Срок и условия</div>
+      <div class="pg-popup-section-title de">Zeitraum & Bedingungen</div>
+      <ul class="pg-popup-items">
+        <li><span class="ru">Запуск за 4–8 недель</span><span class="de">Launch in 4–8 Wochen</span></li>
+        <li><span class="ru">Рассрочка возможна — обсуждаем индивидуально</span><span class="de">Ratenzahlung möglich — individuell besprechen</span></li>
+        <li><span class="ru">6 месяцев поддержки включены</span><span class="de">6 Monate Support inklusive</span></li>
+        <li><span class="ru">Клиенты этого пакета в среднем зарабатывают +€5.000/мес сверх прежнего</span><span class="de">Kunden dieses Pakets verdienen im Schnitt +€5.000/Monat mehr</span></li>
+      </ul>
+    </div>
+
+    <button class="pg-popup-cta" onclick="closePgPopup();document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
+      <span class="ru">Хочу Premium — написать</span><span class="de">Premium anfragen</span>
+    </button>
+  </div>
+</div>
+
+<div class="pg-popup-overlay" id="popup-ai" onclick="if(event.target===this)closePgPopup()">
+  <div class="pg-popup">
+    <div class="pg-popup-close" onclick="closePgPopup()">✕</div>
+    <div class="pg-popup-tier">AI SYSTEM</div>
+    <div class="pg-popup-name">AI Beauty</div>
+    <div class="pg-popup-price" style="font-size:22px"><span class="ru">По запросу</span><span class="de">Auf Anfrage</span></div>
+    <div class="pg-popup-note ru">Салон, который работает сам. ИИ обрабатывает запросы, записывает, отвечает клиентам — 24/7 без вас.</div>
+    <div class="pg-popup-note de">Ein Salon, der selbst arbeitet. KI verarbeitet Anfragen, bucht Termine, antwortet Kunden — 24/7 ohne Sie.</div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Что входит в пакет</div>
+      <div class="pg-popup-section-title de">Was ist enthalten</div>
+      <ul class="pg-popup-items">
+        <li><div><b>AI WhatsApp Assistant</b><span class="pp-sub ru">ИИ-бот отвечает на вопросы клиенток в WhatsApp 24/7: цены, свободные окна, запись, FAQ. Говорит как живой человек.</span><span class="pp-sub de">KI-Bot antwortet Kunden auf WhatsApp 24/7: Preise, freie Slots, Buchung, FAQ. Klingt wie ein Mensch.</span></div></li>
+        <li><div><b><span class="ru">Полная автоматизация</span><span class="de">Vollautomatisierung</span></b><span class="pp-sub ru">Запись, подтверждение, напоминание, перенос, оплата депозита — всё без вашего участия. Вы просто приходите к мастеру.</span><span class="pp-sub de">Buchung, Bestätigung, Erinnerung, Umbuchung, Anzahlung — alles ohne Ihr Zutun.</span></div></li>
+        <li><div><b>Advanced Analytics</b><span class="pp-sub ru">Дашборд в реальном времени: загрузка, выручка, средний чек по мастерам, прогноз на месяц. Смотрите с телефона.</span><span class="pp-sub de">Echtzeit-Dashboard: Auslastung, Umsatz, Durchschnittspreis pro Meister, Monatsforecast. Auf dem Handy.</span></div></li>
+        <li><div><b>AI Content Generation</b><span class="pp-sub ru">Автоматические посты для Instagram — ИИ генерирует текст и подписи по вашим фото. Контент-план на месяц за 10 минут.</span><span class="pp-sub de">Automatische Instagram-Posts — KI generiert Texte und Bildunterschriften aus Ihren Fotos. Monatsplan in 10 Minuten.</span></div></li>
+        <li><div><b>CRM Ecosystem</b><span class="pp-sub ru">Полная экосистема: CRM + автоворонки + сегментация клиентов + персонализированные предложения. Клиентка чувствует себя VIP.</span><span class="pp-sub de">Vollständiges Ökosystem: CRM + Auto-Funnels + Kundensegmentierung + personalisierte Angebote.</span></div></li>
+      </ul>
+    </div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Для кого</div>
+      <div class="pg-popup-section-title de">Für wen</div>
+      <ul class="pg-popup-items">
+        <li><span class="ru">Сети салонов (2+ локации)</span><span class="de">Salon-Ketten (2+ Standorte)</span></li>
+        <li><span class="ru">Студии с высокой загрузкой и очередью</span><span class="de">Studios mit hoher Auslastung und Warteliste</span></li>
+        <li><span class="ru">Владельцы, которые хотят масштабироваться без найма admin-персонала</span><span class="de">Inhaber, die skalieren wollen ohne Admin-Personal einzustellen</span></li>
+      </ul>
+    </div>
+
+    <div class="pg-popup-section">
+      <div class="pg-popup-section-title ru">Как это работает</div>
+      <div class="pg-popup-section-title de">Wie es funktioniert</div>
+      <ul class="pg-popup-items">
+        <li><span class="ru">Стоимость рассчитывается индивидуально под ваш салон</span><span class="de">Preis wird individuell für Ihren Salon kalkuliert</span></li>
+        <li><span class="ru">Проводим бесплатный аудит за 30 минут — считаем потенциал роста</span><span class="de">Kostenloser 30-Minuten-Audit — wir berechnen Ihr Wachstumspotenzial</span></li>
+        <li><span class="ru">Внедрение 6–12 недель, поддержка ongoing</span><span class="de">Implementierung 6–12 Wochen, laufender Support</span></li>
+      </ul>
+    </div>
+
+    <button class="pg-popup-cta" onclick="closePgPopup();document.getElementById('bd-contact')?.scrollIntoView({behavior:'smooth'})">
+      <span class="ru">Хочу AI Beauty — обсудить</span><span class="de">AI Beauty besprechen</span>
+    </button>
+  </div>
+</div>
 
 <!-- ═══════════════ КАЛЬКУЛЯТОР ═══════════════ -->
 <section class="calc-section s-pad">
