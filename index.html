@@ -1647,19 +1647,19 @@ footer.bd-footer h5 { font-family: var(--mono); font-size: 10px; font-weight: 50
           <div class="form-row">
             <label><span class="ru">Что сейчас не работает?</span><span class="de">Was funktioniert nicht?</span></label>
             <select class="form-inp" id="fPain">
-              <option value="" disabled selected>— <span class="ru">выберите</span><span class="de">wählen</span> —</option>
+              <option value="" disabled selected data-ru="— выберите —" data-de="— wählen —">— wählen —</option>
               <option value="noshows">No-Shows</option>
-              <option value="google"><span class="ru">Не находят в Google</span><span class="de">Nicht auf Google</span></option>
-              <option value="booking"><span class="ru">Хаос с записями</span><span class="de">Buchungschaos</span></option>
+              <option value="google" data-ru="Не находят в Google" data-de="Nicht auf Google">Nicht auf Google</option>
+              <option value="booking" data-ru="Хаос с записями" data-de="Buchungschaos">Buchungschaos</option>
               <option value="instagram">Instagram</option>
-              <option value="all"><span class="ru">Всё и сразу</span><span class="de">Alles auf einmal</span></option>
+              <option value="all" data-ru="Всё и сразу" data-de="Alles auf einmal">Alles auf einmal</option>
             </select>
           </div>
           <div class="form-row">
             <label><span class="ru">Сколько мастеров?</span><span class="de">Wie viele Meister?</span></label>
             <select class="form-inp" id="fSize">
               <option value="" disabled selected>—</option>
-              <option value="1">1 (<span class="ru">я сам</span><span class="de">ich selbst</span>)</option>
+              <option value="1" data-ru="1 (я сам)" data-de="1 (ich selbst)">1 (ich selbst)</option>
               <option value="2-3">2–3</option>
               <option value="4-6">4–6</option>
               <option value="7+">7+</option>
@@ -1748,6 +1748,10 @@ function setLang(l) {
   if (l === 'ru') { btns[0].classList.add('on'); }
   else { btns[1].classList.add('on'); }
   localStorage.setItem('bdLang', l);
+  // Update select option texts
+  document.querySelectorAll('option[data-ru]').forEach(function(opt) {
+    opt.textContent = opt.getAttribute('data-' + l) || opt.getAttribute('data-de');
+  });
   if (typeof updateSlotTime === 'function') updateSlotTime();
 }
 (function() {
