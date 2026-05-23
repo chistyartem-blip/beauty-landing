@@ -73,6 +73,114 @@ body.ru :not(body).de { display: none; }
 .cursor-ring.hover { width: 64px; height: 64px; border-color: var(--gold); }
 @media (hover: none) { .cursor, .cursor-ring { display: none; } }
 
+/* ── SCROLL SEQUENCE ── */
+.seq-section {
+  position: relative;
+  height: 500vh;
+  background: var(--bg);
+}
+.seq-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 40px 24px;
+}
+.seq-header {
+  text-align: center;
+  margin-bottom: 24px;
+  z-index: 2;
+  position: relative;
+}
+.seq-title {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 52px);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-top: 12px;
+}
+.seq-title em { color: var(--gold); font-style: italic; }
+.seq-canvas {
+  position: relative;
+  width: min(420px, 90vw);
+  flex-shrink: 0;
+  z-index: 2;
+}
+#seqCanvas {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+.seq-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.seq-label {
+  position: absolute;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  background: rgba(201,168,124,0.08);
+  border: 1px solid rgba(201,168,124,0.25);
+  border-radius: 12px;
+  padding: 10px 14px;
+  backdrop-filter: blur(10px);
+  min-width: 160px;
+}
+.seq-label.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+#sl-website  { top: 10%; right: -55%; }
+#sl-booking  { top: 30%; left: -60%; }
+#sl-google   { top: 50%; right: -58%; }
+#sl-instagram{ top: 68%; left: -58%; }
+#sl-whatsapp { bottom: 5%; right: -55%; }
+.sl-icon { font-size: 20px; margin-bottom: 4px; }
+.sl-title {
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  margin-bottom: 2px;
+}
+.sl-sub {
+  font-size: 11px;
+  color: var(--t2);
+  line-height: 1.4;
+}
+.seq-progress {
+  width: min(420px, 90vw);
+  height: 2px;
+  background: rgba(201,168,124,0.12);
+  border-radius: 2px;
+  margin-top: 20px;
+  z-index: 2;
+  position: relative;
+}
+.seq-prog-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--rose), var(--gold));
+  border-radius: 2px;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+@media(max-width:768px) {
+  #sl-website  { top: 5%;  right: -8px; font-size: 11px; }
+  #sl-booking  { top: 28%; left: -8px; }
+  #sl-google   { top: 50%; right: -8px; }
+  #sl-instagram{ top: 68%; left: -8px; }
+  #sl-whatsapp { bottom: 2%; right: -8px; }
+  .seq-label { min-width: 120px; padding: 8px 10px; }
+}
+
 /* ── GRAIN OVERLAY ── */
 body::before {
   content: '';
@@ -1077,6 +1185,52 @@ footer.bd-footer h5 { font-family: var(--mono); font-size: 10px; font-weight: 50
   </div>
 </section>
 
+<!-- ═══════════════ SCROLL SEQUENCE ═══════════════ -->
+<section class="seq-section" id="bd-sequence">
+  <div class="seq-sticky">
+    <div class="seq-header">
+      <div class="s-eyebrow"><span class="hero-eyebrow-line"></span><span class="s-eyebrow-text"><span class="ru">Как работает система</span><span class="de">So funktioniert das System</span></span></div>
+      <h2 class="seq-title">
+        <span class="ru">Один продукт.<br><em>Пять модулей.</em></span>
+        <span class="de">Ein Produkt.<br><em>Fünf Module.</em></span>
+      </h2>
+    </div>
+    <div class="seq-canvas">
+      <canvas id="seqCanvas"></canvas>
+      <div class="seq-labels" id="seqLabels">
+        <div class="seq-label" id="sl-website" data-from="3" data-to="7">
+          <div class="sl-icon">🌐</div>
+          <div class="sl-title"><span class="ru">Сайт 24/7</span><span class="de">Website 24/7</span></div>
+          <div class="sl-sub"><span class="ru">Клиенты находят вас в Google</span><span class="de">Kunden finden Sie bei Google</span></div>
+        </div>
+        <div class="seq-label" id="sl-booking" data-from="6" data-to="10">
+          <div class="sl-icon">📅</div>
+          <div class="sl-title"><span class="ru">Онлайн-запись</span><span class="de">Online-Buchung</span></div>
+          <div class="sl-sub"><span class="ru">Без WhatsApp, автоматически</span><span class="de">Ohne WhatsApp, automatisch</span></div>
+        </div>
+        <div class="seq-label" id="sl-google" data-from="9" data-to="13">
+          <div class="sl-icon">📍</div>
+          <div class="sl-title">Google & Maps</div>
+          <div class="sl-sub"><span class="ru">Первая страница поиска</span><span class="de">Erste Seite der Suche</span></div>
+        </div>
+        <div class="seq-label" id="sl-instagram" data-from="12" data-to="16">
+          <div class="sl-icon">📸</div>
+          <div class="sl-title">Instagram</div>
+          <div class="sl-sub"><span class="ru">Контент и реклама</span><span class="de">Content & Werbung</span></div>
+        </div>
+        <div class="seq-label" id="sl-whatsapp" data-from="15" data-to="20">
+          <div class="sl-icon">💬</div>
+          <div class="sl-title"><span class="ru">Авто-напоминания</span><span class="de">Auto-Erinnerungen</span></div>
+          <div class="sl-sub"><span class="ru">No-show падает до 4%</span><span class="de">No-Show sinkt auf 4%</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="seq-progress">
+      <div class="seq-prog-bar" id="seqProgBar"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════════ ДО / ПОСЛЕ ═══════════════ -->
 <section class="ba-section s-pad">
   <div class="s-inner">
@@ -2047,6 +2201,83 @@ function bdFaq(el) {
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') { document.getElementById('painOverlay').classList.remove('open'); document.body.style.overflow = ''; }
   });
+})();
+
+// ── SCROLL SEQUENCE ──
+(function() {
+  var TOTAL_FRAMES = 20;
+  var canvas = document.getElementById('seqCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var section = document.getElementById('bd-sequence');
+  var progBar = document.getElementById('seqProgBar');
+  var labels = document.querySelectorAll('.seq-label');
+
+  // Preload all frames
+  var frames = [];
+  var loaded = 0;
+  var frameW = 420, frameH = 747; // 9:16 ratio
+  canvas.width = frameW;
+  canvas.height = frameH;
+
+  // Draw placeholder
+  ctx.fillStyle = '#0D0A08';
+  ctx.fillRect(0, 0, frameW, frameH);
+
+  for (var i = 1; i <= TOTAL_FRAMES; i++) {
+    (function(idx) {
+      var img = new Image();
+      img.onload = function() {
+        loaded++;
+        if (loaded === 1) renderFrame(0); // show first frame immediately
+      };
+      img.onerror = function() { loaded++; };
+      img.src = 'img/seq/frame_' + String(idx).padStart(2, '0') + '.png';
+      frames[idx - 1] = img;
+    })(i);
+  }
+
+  function renderFrame(idx) {
+    idx = Math.max(0, Math.min(TOTAL_FRAMES - 1, idx));
+    var img = frames[idx];
+    if (img && img.complete && img.naturalWidth > 0) {
+      ctx.clearRect(0, 0, frameW, frameH);
+      ctx.drawImage(img, 0, 0, frameW, frameH);
+    }
+    // Update labels
+    labels.forEach(function(el) {
+      var from = parseInt(el.getAttribute('data-from'));
+      var to = parseInt(el.getAttribute('data-to'));
+      var frameNum = idx + 1;
+      if (frameNum >= from && frameNum <= to) {
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    });
+  }
+
+  function onScroll() {
+    if (!section) return;
+    var rect = section.getBoundingClientRect();
+    var sectionH = section.offsetHeight;
+    var viewH = window.innerHeight;
+    // progress 0→1 as sticky scrolls through
+    var scrolled = -rect.top;
+    var scrollable = sectionH - viewH;
+    var progress = Math.max(0, Math.min(1, scrolled / scrollable));
+
+    // Update progress bar
+    if (progBar) progBar.style.width = (progress * 100) + '%';
+
+    // Map progress to frame index
+    var frameIdx = Math.floor(progress * (TOTAL_FRAMES - 1));
+    renderFrame(frameIdx);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Initial render
+  setTimeout(function() { renderFrame(0); }, 200);
 })();
 </script>
 </body>
